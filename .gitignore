@@ -114,3 +114,7 @@ venv.bak/
 
 # PyCharm
 .idea
+
+
+# vscode cache 
+*.DS_Store 

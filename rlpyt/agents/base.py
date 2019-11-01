@@ -1,7 +1,7 @@
 import multiprocessing as mp
 import torch
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.nn.parallel import DistributedDataParallelCPU as DDPC
+# from torch.nn.parallel import DistributedDataParallelCPU as DDPC
 
 from rlpyt.utils.quick_args import save__init__args
 from rlpyt.utils.collections import namedarraytuple
@@ -70,7 +70,8 @@ class BaseAgent:
         """Overwrite/extend for format other than 'self.model' for network(s)
         which will have gradients through them."""
         if self.device.type == "cpu":
-            self.model = DDPC(self.model)
+            self.model = DDP(self.model)
+            # self.model = DDPC(self.model)
             logger.log("Initialized DistributedDataParallelCPU agent model.")
         else:
             self.model = DDP(self.model,
